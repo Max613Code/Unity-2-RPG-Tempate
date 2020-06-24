@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Timeline;
 
 public class DialogUIManager : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class DialogUIManager : MonoBehaviour
     private int currentIndex = 0;
     [SerializeField]
     private int responses = 0;
+
+    private DialogueBranch branch;
 
     // Start is called before the first frame update
     void Start()
@@ -49,19 +52,45 @@ public class DialogUIManager : MonoBehaviour
 
     public void NextBranch(int branchSelect)
     {
-        // Add ReciveDialogueBranch with newBranch being next branch
+        RecieveDialogueBranch(branch.ResponseOption[branchSelect].nextBranch);
+        ActiveDialogue();
+        NextDialogue();
     }
 
-    
-    public void RecieveDialogueBranch()
+
+    public void RecieveDialogueBranch(DialogueBranch newBranch)
     {
-        // Add branch info here
+        branch = newBranch;
+        responses = Mathf.Clamp(branch.ResponseOption.Count, 0, 3);
+        currentIndex = 0;
     }
 
     public void NextDialogue()
     {
-        DeactiveDialogue(); // Remove this and
-       // add next Dialogue mechanism here
+        if (currentIndex >= branch.DialogueLines.Count)
+        {
+            if (responses == 0)
+            {
+                DeactiveDialogue();
+            }
+            else
+            {
+                continueText.SetActive(false);
+                for (int i=0;i<responses;i++)
+                {
+                    if (i >= 3) break;
 
+                    responsesHolder[i].gameObject.SetActive(true);
+                    responsesHolder[i].GetComponentInChildren<TextMeshProUGUI>().text = branch.ResponseOption[i].Text;
+
+                }
+            }
+        }
+        else
+        {
+            mainText.GetComponent<TextMeshProUGUI>().text = branch.DialogueLines[currentIndex];
+            continueText.SetActive(true);
+            currentIndex += 1;
+        }
     }
 }
