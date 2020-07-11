@@ -29,6 +29,11 @@ public class InventorySlot : MonoBehaviour
             indexItem = -1;
             amount = -1;
         }
+
+        if(infoText == null)
+        {
+            infoText = GameObject.FindWithTag("Info").GetComponent<TextMeshProUGUI>();
+        }
     }
 
     public void UpdateSelf(PlayerManager player)
@@ -39,8 +44,13 @@ public class InventorySlot : MonoBehaviour
             GetComponentInChildren<Image>().sprite = player.lt.lootItems[indexItem].sprite;
             GetComponentInChildren<Image>().color = player.lt.lootItems[indexItem].color;
             FillValues(player);
+            GetComponentInChildren<TextMeshProUGUI>().text = amount.ToString();
         }
-        GetComponentInChildren<TextMeshProUGUI>().text = amount.ToString();
+        else
+        {
+            GetComponentInChildren<Image>().enabled = false;
+            GetComponentInChildren<TextMeshProUGUI>().text = "";
+        }
     }
 
     void FillValues(PlayerManager player)

@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c2819f12862b4ed282dc545792e36da, type: 3}
-  m_Name: Fossil
+  m_Script: {fileID: 11500000, guid: 5ccb3c891085a4592923a229fd0164d4, type: 3}
+  m_Name: Iridium
   m_EditorClassIdentifier: 
-  itemName: Fossil
-  price: 200
-  itemType: 1
-  sprite: {fileID: 21300000, guid: 63bd50a6c3fd26b439c10e599e94b853, type: 3}
+  itemName: Iridium
+  price: 55000
+  itemType: 0
+  sprite: {fileID: 0}
   color: {r: 1, g: 1, b: 1, a: 1}
-  rarity: 22.99
+  rarity: 0.01
